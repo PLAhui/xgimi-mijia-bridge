@@ -1,0 +1,12 @@
+# 编译产物 / 本地环境
+.pio/
+.venv/
+__pycache__/
+
+# 私人数据：调试日志、记忆文件（内含真实 IP、密钥，切勿上传！）
+.workbuddy/
+*.log
+nohup.out
+
+# 系统文件
+.DS_Store
