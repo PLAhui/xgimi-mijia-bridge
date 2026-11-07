@@ -37,6 +37,7 @@
 #include <NimBLEDevice.h>
 
 // ------------------------------ 可改的默认值 --------------------------------
+#define FIRMWARE_VERSION     "v1.0.0"
 //  出于安全考虑这里全部留空：首次上电会进入配网热点（JimiPlay5-Setup / 12345678），
 //  在配网页面里填家里 Wi-Fi、巴法云私钥、主题、投影仪 IP，存进 Flash，掉电不丢。
 //  如果你想免配网、直接把 Wi-Fi 写死在固件里，也可以在下面填上（不要把填好的代码传到公开仓库）。
@@ -496,7 +497,7 @@ static void mqttEnsure() {
 static const char *PAGE_HEAD =
     "<!DOCTYPE html><html lang=\"zh-CN\"><head><meta charset=\"utf-8\">"
     "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
-    "<title>极米 Play5 桥</title><style>"
+    "<title>极米投影仪米家桥</title><style>"
     "body{font-family:-apple-system,'PingFang SC',sans-serif;margin:0;background:#f5f6f8;color:#23262b}"
     ".wrap{max-width:560px;margin:0 auto;padding:18px 16px 40px}"
     "h1{font-size:19px;margin:4px 0 16px;font-weight:650}"
@@ -514,7 +515,7 @@ static const char *PAGE_HEAD =
     ".tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:20px}"
     ".on{background:#e6f6ec;color:#0a8a3f}.off{background:#f1f2f4;color:#6b7280}"
     ".hint{font-size:13px;color:#878c96;line-height:1.6;margin-top:6px}"
-    "</style></head><body><div class=\"wrap\"><h1>极米 Play5 · 米家桥</h1>";
+    "</style></head><body><div class=\"wrap\"><h1>极米投影仪 · 米家桥 " FIRMWARE_VERSION "</h1>";
 
 static String pageBody() {
     String h;
@@ -579,8 +580,8 @@ static String pageBody() {
     h += "<form method=\"POST\" action=\"/reset\"><button class=\"red\">清除开机广播 / 重启</button></form>";
     h += "</div>";
 
-    h += "<div class=\"hint\" style=\"text-align:center\">ESP32 " + String(ESP.getFreeHeap() / 1024) +
-         " KB 可用内存 · 运行 " + String(millis() / 1000) + " 秒</div>";
+    h += "<div class=\"hint\" style=\"text-align:center\">固件 " FIRMWARE_VERSION " · ESP32 " +
+         String(ESP.getFreeHeap() / 1024) + " KB 可用内存 · 运行 " + String(millis() / 1000) + " 秒</div>";
     return h;
 }
 
@@ -699,7 +700,7 @@ static void handleSerial() {
 void setup() {
     Serial.begin(115200);
     delay(300);
-    Serial.println("\n\n=== 极米 Play5 × 米家 桥 启动 ===");
+    Serial.println("\n\n=== 极米投影仪米家桥 " FIRMWARE_VERSION " 启动 ===");
     {
         esp_reset_reason_t r = esp_reset_reason();
         const char *why = (r == ESP_RST_PANIC) ? "崩溃重启（panic）"

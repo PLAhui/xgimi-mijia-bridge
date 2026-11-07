@@ -10,3 +10,5 @@ nohup.out
 
 # 系统文件
 .DS_Store
+# 发布产物（编译生成，随 Release 发布，不入库）
+dist/

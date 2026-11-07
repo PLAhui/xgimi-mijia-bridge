@@ -66,7 +66,22 @@ BLE 广播报文（内含这台遥控器专属的 token），投影仪待机时�
 
 ## 快速开始
 
-### ① 安装 PlatformIO 并烧录
+### 不想装开发环境？直接刷现成固件
+
+到 [**Releases**](https://github.com/PLAhui/xgimi-mijia-bridge/releases) 页面下载
+`xgimi-mijia-bridge-vX.X.X-esp32.bin`（已合并 bootloader，整包一条命令刷入）：
+
+```bash
+pip install esptool          # 安装刷机工具（只需一次）
+esptool.py --port /dev/cu.usbserial-xxxx --baud 460800 write_flash 0x0 xgimi-mijia-bridge-v1.0.0-esp32.bin
+```
+
+- 端口怎么看：macOS 是 `/dev/cu.usbserial-xxxx`，Linux 是 `/dev/ttyUSB0`，Windows 填 `COM3` 这类
+- Windows 图形界面党可以用 [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools)，
+  chipType 选 `ESP32`，文件地址填 **0x0**
+- 刷完看下面「② 配网」继续，和源码编译版完全一样
+
+### ① 安装 PlatformIO 并烧录（二选一）
 
 电脑装好 [VS Code](https://code.visualstudio.com/) 和 [PlatformIO 插件](https://platformio.org/install/ide)，
 克隆本项目并用 VS Code 打开文件夹，PlatformIO 会自动装好依赖，然后：
